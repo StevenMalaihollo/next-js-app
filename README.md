@@ -2,7 +2,7 @@
 
 Showcase a simple frontend and backend built upon Next JS.
 
-Due to the short timespan very little functionality was delivered. No POST, PATCH or DELETE requests are available, nor any form validation.
+Due to the short timespan (3 hours), very little functionality was delivered. No POST, PATCH or DELETE requests are available, nor any form validation.
 
 If there was more time I would expand the API and finetune the User interface. There was with some groundwork done for a containerized environment, which would include a mySQL database and a database administration tool.
 
