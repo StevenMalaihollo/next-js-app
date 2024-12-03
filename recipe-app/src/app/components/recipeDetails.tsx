@@ -1,24 +1,10 @@
+import { Recipe } from "@/pages/api/recipes";
 import React from "react";
 
-interface Ingredient {
-  name: string;
-  quantity: string; // Example: "1 cup", "200g"
-}
-
-interface RecipeProps {
-  title: string;
-  creationDate: string; // ISO 8601 date string
-  cookingInstructions: string;
-  isVegetarian: boolean;
-  servings: number;
-  ingredients: Ingredient[];
-}
-
-const RecipeDetail: React.FC<RecipeProps> = ({
+const RecipeDetail: React.FC<Recipe> = ({
   title,
   creationDate,
   cookingInstructions,
-  isVegetarian,
   servings,
   ingredients,
 }) => {
@@ -36,24 +22,17 @@ const RecipeDetail: React.FC<RecipeProps> = ({
 
       <p className="text-gray-500 text-sm mt-1">Created on: {formattedDate}</p>
 
-      <p
-        className={`mt-2 text-sm ${
-          isVegetarian ? "text-green-600" : "text-red-600"
-        }`}
-      >
-        {isVegetarian ? "Vegetarian" : "Non-Vegetarian"}
-      </p>
-
       <p className="mt-2 text-gray-700">Servings: {servings}</p>
 
       <section className="mt-4">
         <h2 className="text-xl font-semibold text-gray-800">Ingredients:</h2>
         <ul className="mt-2 list-disc list-inside text-gray-700">
-          {ingredients.map((ingredient, index) => (
-            <li key={index}>
-              {ingredient.quantity} - {ingredient.name}
-            </li>
-          ))}
+          {ingredients &&
+            ingredients.map((ingredient, index) => (
+              <li key={index}>
+                {ingredient.quantity} - {ingredient.name}
+              </li>
+            ))}
         </ul>
       </section>
 

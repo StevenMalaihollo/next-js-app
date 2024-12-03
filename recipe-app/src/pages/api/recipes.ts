@@ -1,6 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
 
-export interface RecipeDetail {
+export interface Recipe {
+  slug: string;
   title: string;
   creationDate: string;
   cookingInstructions: string;
@@ -12,8 +13,9 @@ export interface RecipeDetail {
   }[];
 }
 
-const recipes: RecipeDetail[] = [
+const recipes: Recipe[] = [
   {
+    slug: "spaghetti-aglio-e-olio",
     title: "Spaghetti Aglio e Olio",
     creationDate: "2024-12-03T12:00:00Z",
     cookingInstructions: `1. Cook spaghetti until al dente.
@@ -33,6 +35,7 @@ const recipes: RecipeDetail[] = [
     ],
   },
   {
+    slug: "vegetarian-chili",
     title: "Vegetarian Chili",
     creationDate: "2024-11-25T15:30:00Z",
     cookingInstructions: `1. Heat oil in a large pot and sauté onions, garlic, and bell peppers.
@@ -57,5 +60,12 @@ const recipes: RecipeDetail[] = [
 ];
 
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
+  if (req.query.slug) {
+    const recipe = recipes.find((recipe) => recipe.slug === req.query.slug);
+    if (!recipe) {
+      return res.status(404).json({ message: "Recipe not found" });
+    }
+    return res.status(200).json(recipe);
+  }
   res.status(200).json(recipes);
 }
